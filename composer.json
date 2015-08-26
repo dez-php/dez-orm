@@ -10,11 +10,12 @@
   ],
   "license": "MIT",
   "type": "library",
-  "repositories": [],
   "require": {
-    "dez-php/dez-collection": "dev-master",
     "php": ">=5.5"
   },
+  "requre-dev": {
+    "dez-php/dez-collection": "dev-master"
+  }
   "autoload": {
     "psr-4": {
       "Dez\\ORM\\": "src/ORM"
