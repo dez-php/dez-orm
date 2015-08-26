@@ -13,7 +13,7 @@
   "require": {
     "php": ">=5.5"
   },
-  "requre-dev": {
+  "require-dev": {
     "dez-php/dez-collection": "dev-master"
   },
   "autoload": {
