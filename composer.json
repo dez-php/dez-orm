@@ -1,7 +1,14 @@
 {
   "name": "dez-php/dez-orm",
   "description": "Simple PHP ORM (DezORM)",
-  "version": "1.0.0",
+  "keywords": ["php orm","orm","simple php orm", "dez-php orm"],
+  "authors": [
+    {
+      "name": "Ivan Gontarenko",
+      "email": "vania.gontarenko@gmail.com"
+    }
+  ],
+  "license": "MIT",
   "type": "library",
   "repositories": [],
   "require": {
