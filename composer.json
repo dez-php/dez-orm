@@ -15,7 +15,7 @@
   },
   "requre-dev": {
     "dez-php/dez-collection": "dev-master"
-  }
+  },
   "autoload": {
     "psr-4": {
       "Dez\\ORM\\": "src/ORM"
