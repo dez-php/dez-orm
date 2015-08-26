@@ -2,7 +2,6 @@
 
     namespace Dez\ORM\Model;
 
-    use Dez\Error\Exception\InvalidArgs;
     use Dez\ORM;
     use Dez\ORM\Common\Object;
     use Dez\ORM\Common\Utils;
@@ -14,10 +13,6 @@
 
     use Dez\ORM\Relation\HasMany as RelationHasMany;
     use Dez\ORM\Relation\HasOne as RelationHasOne;
-
-    /**
-     * @Injectable(lazy=true)
-     */
 
     abstract class TableAbstract extends Object {
 
@@ -37,7 +32,7 @@
             if( ! $this->hasTable() ) {
                 throw new ORMException( 'Not defined table name for: '. $this->getTableName() );
             }
-            $this->setConnection( ORM::connect() );
+            $this->setConnection( ORM\Bootstrap::connect() );
             $this->pk   = $this->getConnection()->getSchema()->getTablePK( $this->getTableName() );
         }
 
@@ -124,7 +119,7 @@
          */
 
         public function getTableName() {
-            return ! $this->hasTable() ?: static::$table;
+            return ! $this->hasTable() ? static::class : static::$table;
         }
 
         /**
@@ -242,7 +237,7 @@
                 $collection  = RelationHasOne::instance( $this->getCollection()->getIDs(), $related, $foreignKey )->setModel( $this )->get();
                 return $collection->count() > 0 ? $collection[0] : new $related;
             }
-            throw new InvalidArgs( 'Related model not found ['. $related .']' );
+            throw new ORMException( 'Related model not found ['. $related .']' );
         }
 
         /**
@@ -257,7 +252,7 @@
                 $ids = $this->getCollection() ? $this->getCollection()->getIDs() : [ $this->id() ];
                 return RelationHasMany::instance( $ids, $related, $foreignKey )->setModel( $this )->get();
             }
-            throw new InvalidArgs( 'Related model not found ['. $related .']' );
+            throw new ORMException( 'Related model not found ['. $related .']' );
         }
 
         /**

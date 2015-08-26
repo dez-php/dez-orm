@@ -2,12 +2,11 @@
 
     namespace Dez\ORM\Common;
 
-    use Dez\Core\SingletonTrait as Singleton,
-        Dez\ORM\Exception\Error as ORMException;
+    use Dez\ORM\Exception\Error as ORMException;
 
     class Event {
 
-        use Singleton;
+        use SingletonTrait;
 
         protected
             $callbacks = [];
