@@ -1,8 +1,8 @@
 <?php
 
-    namespace Dez\ORM\Collection;
+    namespace Dez\Collection\AbstractCollection;
 
-    class ModelCollection extends Collection {
+    class ModelCollection extends AbstractCollection {
 
         protected
             $keyName = 'id';

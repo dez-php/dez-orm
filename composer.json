@@ -12,6 +12,7 @@
   "type": "library",
   "repositories": [],
   "require": {
+    "dez-php/dez-collection": "dev-master",
     "php": ">=5.5"
   },
   "autoload": {
