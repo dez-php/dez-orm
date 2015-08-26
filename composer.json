@@ -1,0 +1,13 @@
+{
+  "name": "dez-php/dez-orm",
+  "type": "library",
+  "repositories": [],
+  "require": {
+    "php": ">=5.5"
+  },
+  "autoload": {
+    "psr-4": {
+      "Dez\\ORM\\": "src/ORM"
+    }
+  }
+}

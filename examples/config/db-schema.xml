@@ -1,0 +1,12 @@
+<?xml version="1.0" ?>
+<orm>
+
+    <database name="tasker" charset="utf8">
+
+        <table name="test">
+            <column name="id" type="int" ai="1" pk="1" />
+        </table>
+        
+    </database>
+
+</orm>
