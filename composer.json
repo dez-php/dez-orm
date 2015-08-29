@@ -12,7 +12,8 @@
   "type": "library",
   "require": {
     "php": ">=5.5",
-    "dez-php/dez-collection": ">=1.0.0"
+    "dez-php/dez-collection": ">=1.0.0",
+    "dez-php/dez-di": ">=1.0.0"
   },
   "autoload": {
     "psr-4": {
