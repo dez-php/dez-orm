@@ -2,8 +2,17 @@
 
     namespace Dez\ORM\Query;
 
+    /**
+     * Class BuilderTrait
+     * @package Dez\ORM\Query
+     */
     trait BuilderTrait {
 
+        /**
+         * @param null $column
+         * @param bool|false $separate
+         * @return array|string
+         */
         protected function _prepareColumn( $column = null, $separate = false ) {
 
             $alias  = null;
@@ -25,10 +34,18 @@
                 : $tableName .'.'. $column . ( ! $alias ? null : "\x20". $alias );
         }
 
+        /**
+         * @param null $string
+         * @return null|string
+         */
         protected function _escapeName( $string = null  ) {
             return ! empty( $string ) ? '`'. $string .'`' : null;
         }
 
+        /**
+         * @param null $string
+         * @return null|string
+         */
         protected function _escapeData( $string = null  ) {
             return ! empty( $string ) ? '\''. $string .'\'' : null;
         }

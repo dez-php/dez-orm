@@ -3,10 +3,12 @@
     namespace Dez\ORM\Model;
 
     use Dez\ORM\Collection\ModelCollection;
-    use Dez\ORM\Query\Builder as BaseQueryBuilder;
 
     class Table extends TableAbstract {
 
+        /**
+         *
+         */
         public function __destruct() {
             $this->onDestroy();
         }
@@ -47,6 +49,10 @@
             return $model;
         }
 
+        /**
+         * @param bool|false $ignore
+         * @return bool|int
+         */
         public function save( $ignore = false ) {
             $this->beforeSave();
             $query      = new QueryBuilder( $this );
@@ -55,6 +61,9 @@
             return $result;
         }
 
+        /**
+         * @return bool|int
+         */
         public function delete() {
             $this->beforeDelete();
             $query      = new QueryBuilder( $this );
@@ -63,34 +72,64 @@
             return $result;
         }
 
+        /**
+         * @return int
+         */
         public function id() {
             return $this->id;
         }
 
+        /**
+         * @return mixed|null
+         */
         public function pk() {
             return $this->pk;
         }
 
+        /**
+         * @return array
+         */
         public function toArray() {
             return (array) $this->data;
         }
 
+        /**
+         * @return object
+         */
         public function toObject() {
             return (object) $this->data;
         }
 
+        /**
+         * @return string
+         */
         public function toJSON() {
             return json_encode( $this->toArray() );
         }
 
+        /**
+         *
+         */
         protected function beforeSave() {}
 
+        /**
+         *
+         */
         protected function beforeDelete() {}
 
+        /**
+         *
+         */
         protected function afterSave() {}
 
+        /**
+         *
+         */
         protected function afterDelete() {}
 
+        /**
+         *
+         */
         protected function onDestroy() {}
 
     }

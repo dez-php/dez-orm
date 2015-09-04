@@ -14,8 +14,7 @@
   "prefer-stable" : true,
   "require": {
     "php": ">=5.5",
-    "dez-php/dez-di": ">=1.0.0",
-    "dez-php/dez-configuration": ">=1.0.0",
+    "dez-php/dez-db": ">=1.0.0",
     "dez-php/dez-collection": ">=1.0.0"
   },
   "autoload": {

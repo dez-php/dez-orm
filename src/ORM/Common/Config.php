@@ -7,7 +7,7 @@
     class Config {
 
         static private
-            $config = array();
+            $config = [];
 
         public function __get( $name ) {
             return $this->get( $name );
@@ -52,7 +52,7 @@
             return $config;
         }
 
-        static private function arrayToObject( array $array = array() ) {
+        static private function arrayToObject( array $array = [] ) {
             $object = new \stdClass();
             foreach( $array as $key => $value ) {
                 if( is_array( $value ) ) {

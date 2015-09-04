@@ -2,41 +2,59 @@
 
     namespace Dez\ORM;
 
-    use Dez\ORM\Common\Config;
-    use Dez\ORM\Exception\Error as ORMException;
-    use Dez\ORM\Connection;
+    use Dez\Config\Config;
+    use Dez\Db\Connection;
 
+    /**
+     * Class Bootstrap
+     * @package Dez\ORM
+     */
     class Bootstrap {
 
-        static private
-            $connections    = array(),
-            $connectionName = null;
+        /** @var array() */
+        static protected $connections       = [];
 
-        static public function init( $configFile = null, $connectionName = null ) {
+        /** @var string */
+        static protected $connectionName    = 'dev';
 
-            try {
-                Config::setConfig( $configFile );
-            } catch ( ORMException $e ) {
-                die( $e->getMessage() );
-            }
+        /** @var Config */
+        static protected $config;
 
+        /**
+         * @param Config $config
+         * @param null $connectionName
+         */
+        static public function init( Config $config, $connectionName = null ) {
+            static::$config         = $config;
+            static::$connectionName = $connectionName;
             self::setConnectionName( $connectionName );
         }
 
+        /**
+         * @param null $connectionName
+         */
         static public function setConnectionName( $connectionName = null ) {
             self::$connectionName = $connectionName;
         }
 
         /**
-         * @return Connection\DBO $connection
-        */
-
+         * @return Connection
+         */
         static public function connect() {
-            $hash   = md5( self::$connectionName );
+
+            $hash   = md5( static::$connectionName );
+
             if( ! isset( self::$connections[ $hash ] ) ) {
-                self::$connections[ $hash ] = new Connection\DBO( self::$connectionName );
+
+                $connectionConfig   = static::$config
+                    ->get( 'db' )->get( 'connection' )->get( static::$connectionName );
+                $connectionConfig[ 'schema' ]   = static::$config
+                    ->get( 'db' )->get( 'schema' );
+                static::$connections[ $hash ]   = new Connection( $connectionConfig );
+
             }
-            return self::$connections[ $hash ];
+
+            return static::$connections[ $hash ];
         }
 
     }

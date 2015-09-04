@@ -2,19 +2,43 @@
 
     namespace Dez\ORM\Query;
 
+    /**
+     * Class Func
+     * @package Dez\ORM\Query
+     */
     abstract class Func {
 
         use BuilderTrait;
 
-        protected
-            $tableName  = null,
-            $columnName = null,
-            $args       = array(),
+        /**
+         * @var null
+         */
+        protected $tableName  = null;
+        /**
+         * @var null
+         */
+        protected $columnName = null;
+        /**
+         * @var array
+         */
+        protected $args       = [];
 
-            $column     = array(),
+        /**
+         * @var array
+         */
+        protected $column     = [];
 
-            $expression = null;
+        /**
+         * @var null
+         */
+        protected $expression = null;
 
+        /**
+         * @param null $tableName
+         * @param null $columnName
+         * @param array $args
+         * @return $this
+         */
         public function wrap( $tableName = null, $columnName = null, array $args = [] ) {
             $this->tableName    = $tableName;
             $this->columnName   = $columnName;
@@ -22,11 +46,17 @@
             return $this;
         }
 
+        /**
+         * @return null
+         */
         public function getExpression() {
             $this->_prepare()->_createExpression()->_addAlias();
             return $this->expression;
         }
 
+        /**
+         * @return $this
+         */
         private function _prepare() {
             list(
                 $this->column['table'],
@@ -36,12 +66,18 @@
             return $this;
         }
 
+        /**
+         *
+         */
         protected function _addAlias() {
             if( ! empty( $this->column['alias'] ) ) {
                 $this->expression .= ' '. $this->column['alias'];
             }
         }
 
+        /**
+         * @return mixed
+         */
         abstract protected function _createExpression();
 
     }

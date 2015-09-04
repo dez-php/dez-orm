@@ -5,9 +5,9 @@
     use Dez\ORM;
     use Dez\ORM\Common\Object;
     use Dez\ORM\Common\Utils;
-    use Dez\ORM\Connection\DBO as DbConnection;
-    use Dez\ORM\Connection\Stmt;
-    use Dez\ORM\Exception\Error as ORMException;
+    use Dez\Db\Connection as DbConnection;
+    use Dez\Db\Stmt;
+    use Dez\ORM\Exception as ORMException;
     use Dez\ORM\Collection\ModelCollection;
     use Dez\ORM\Common\Pagi as Pagination;
 
@@ -225,33 +225,30 @@
             return ! $phpName ? null : Utils::php2sql( $phpName );
         }
 
-        /**
-         * @param   string $related
-         * @param   string $foreignKey
-         * @return  static $model
-         * @throws  InvalidArgs
-         */
+        protected function hasOne( $related = null, $foreignKey = 'id', $fromKey = 'id' ) {
 
-        protected function hasOne( $related = null, $foreignKey = 'id' ) {
             if( $related != null && class_exists( $related ) ) {
-                $collection  = RelationHasOne::instance( $this->getCollection()->getIDs(), $related, $foreignKey )->setModel( $this )->get();
+
+                $ids            = ! $this->getCollection()
+                    ? [ $fromKey == $this->pk() ? $this->id() : $this->get( $fromKey ) ]
+                    : $this->getCollection()->getIDs( $fromKey );
+
+                $collection     = RelationHasOne::instance( $ids, $related, $foreignKey, $fromKey )->setModel( $this )->get();
                 return $collection->count() > 0 ? $collection[0] : new $related;
+
             }
+
             throw new ORMException( 'Related model not found ['. $related .']' );
+
         }
 
-        /**
-         * @param   string $related
-         * @param   string $foreignKey
-         * @return  ModelCollection $collection
-         * @throws  InvalidArgs
-        */
+        protected function hasMany( $related = null, $foreignKey = 'id', $fromKey = 'id' ) {
 
-        protected function hasMany( $related = null, $foreignKey = 'id' ) {
             if( $related != null && class_exists( $related ) ) {
-                $ids = $this->getCollection() ? $this->getCollection()->getIDs() : [ $this->id() ];
-                return RelationHasMany::instance( $ids, $related, $foreignKey )->setModel( $this )->get();
+                $ids = $this->getCollection() ? $this->getCollection()->getIDs( $fromKey ) : [ $this->id() ];
+                return RelationHasMany::instance( $ids, $related, $foreignKey, $fromKey )->setModel( $this )->get();
             }
+
             throw new ORMException( 'Related model not found ['. $related .']' );
         }
 
