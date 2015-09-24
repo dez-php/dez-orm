@@ -10,7 +10,6 @@ use Dez\Config\Adapter\Ini as IniAdapter;
 use Dez\Config\Adapter\NativeArray as ArrayAdapter;
 
 $config = new JsonAdapter( './config/config.json' );
-$config->merge( new IniAdapter( './config/config.ini' ) );
 $config->merge( new ArrayAdapter( './config/config.php' ) );
 
 Dez\ORM\Bootstrap::init( $config, 'dev' );

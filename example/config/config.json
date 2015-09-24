@@ -11,6 +11,11 @@
         "user":"root",
         "password":"root"
       }
+    },
+    "setting":{
+      "schema":{
+        "file":"./config/schema.xml"
+      }
     }
   }
 }

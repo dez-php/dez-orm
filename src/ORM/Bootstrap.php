@@ -49,8 +49,8 @@
 
                 $connectionConfig   = static::$config
                     ->get( 'db' )->get( 'connection' )->get( static::$connectionName );
-                $connectionConfig[ 'schema' ]   = static::$config
-                    ->get( 'db' )->get( 'schema' );
+                $connectionConfig[ 'setting' ]  = static::$config
+                    ->get( 'db' )->get( 'setting' );
                 static::$connections[ $hash ]   = new Connection( $connectionConfig );
 
             }
