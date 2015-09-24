@@ -38,13 +38,14 @@
         }
 
         /**
-         * @return Connection
+         * @param bool|false $reconnect
+         * @return mixed
          */
-        static public function connect() {
+        static public function connect( $reconnect = false ) {
 
             $hash   = md5( static::$connectionName );
 
-            if( ! isset( self::$connections[ $hash ] ) ) {
+            if( ! isset( self::$connections[ $hash ] ) || $reconnect === true ) {
 
                 $connectionConfig   = static::$config
                     ->get( 'db' )->get( 'connection' )->get( static::$connectionName );
