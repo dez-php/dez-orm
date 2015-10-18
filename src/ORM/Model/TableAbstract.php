@@ -99,7 +99,7 @@
          */
 
         public function set( $name = null, $value = null ) {
-            if( $this->pk == $name ) {
+            if( $this->pk() == $name ) {
                 $this->id           = $value;
             } else {
                 $this->data[$name]  = $value;
