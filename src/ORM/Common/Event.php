@@ -2,7 +2,7 @@
 
     namespace Dez\ORM\Common;
 
-    use Dez\ORM\Exception\Error as ORMException;
+    use Dez\ORM\Exception as ORMException;
 
     class Event {
 

@@ -1,8 +1,0 @@
-[orm]
-
-connect_dev[dsn] = 'mysql:host=localhost;dbname=domain-checker';
-connect_dev[user] = 'root';
-connect_dev[password] = 'root';
-
-use_schema = 0 ; no, in dev now
-schema_file = ./config/db-schema.xml ; relative of ORM.php

@@ -14,6 +14,7 @@
             $model          = null,
             $related        = null,
             $foreignKey     = 'id',
+            $fromKey        = 'id',
             $ids            = [ 0 ],
 
             $collection     = null;
@@ -24,10 +25,11 @@
          * @param   string $foreignKey
          */
 
-        protected function init( array $ids = [], $related, $foreignKey ) {
+        protected function init( array $ids = [], $related, $foreignKey, $fromKey ) {
             $this->ids          = $ids;
             $this->related      = $related;
             $this->foreignKey   = $foreignKey;
+            $this->fromKey      = $fromKey;
             $this->makeRelation();
         }
 
@@ -39,9 +41,21 @@
         }
 
         public function get() {
+
             return $this->collection->findAll( function( $item ) {
-                return $this->model->id() == $item->get( $this->foreignKey );
+
+                $modelValue     = $this->fromKey == $this->model->pk()
+                    ? $this->model->id()
+                    : $this->model->get( $this->fromKey );
+
+                $relatedValue   = $this->foreignKey == $item->pk()
+                    ? $item->id()
+                    : $item->get( $this->foreignKey );
+
+                return $modelValue == $relatedValue;
+
             } );
+
         }
 
     }

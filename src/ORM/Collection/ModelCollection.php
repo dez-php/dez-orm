@@ -21,6 +21,7 @@
          */
         public function setKeyName( $keyName = null ) {
             $this->keyName  = $keyName;
+            return $this;
         }
 
         /**
@@ -42,8 +43,8 @@
         /**
          * @return array
          */
-        public function getIDs() {
-            return array_keys( $this->getDictionary() );
+        public function getIDs( $key = null ) {
+            return array_keys( $this->getDictionary( $key ) );
         }
 
         /**
@@ -58,10 +59,11 @@
         /**
          * @return array
          */
-        public function getDictionary() {
+        public function getDictionary( $key = null ) {
             $dictionary = [];
+            $key        = ! $key ? $this->getKeyName() : $key;
             foreach( $this->items as $item ) {
-                $dictionary[ $this->getKeyName() == 'id' ? $item->id() : $item->get( $this->getKeyName() ) ] = $item;
+                $dictionary[ $key == 'id' ? $item->id() : $item->get( $key ) ] = $item;
             }
             return $dictionary;
         }

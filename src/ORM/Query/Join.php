@@ -2,16 +2,37 @@
 
     namespace Dez\ORM\Query;
 
+    /**
+     * Class Join
+     * @package Dez\ORM\Query
+     */
     class Join {
 
         use BuilderTrait;
 
-        private
-            $type       = null,
-            $cmpTable   = null,
-            $joinTable  = null,
-            $expression = [];
+        /**
+         * @var null
+         */
+        protected $type       = null;
+        /**
+         * @var null
+         */
+        protected $cmpTable   = null;
+        /**
+         * @var null
+         */
+        protected $joinTable  = null;
+        /**
+         * @var array
+         */
+        protected $expression = [];
 
+        /**
+         * @param null $type
+         * @param null $joinTable
+         * @param null $cmpTable
+         * @param array $onExpression
+         */
         public function __construct( $type = null, $joinTable = null, $cmpTable = null, array $onExpression = [] ) {
             $this->type         = $type;
             $this->cmpTable     = $cmpTable;
@@ -19,10 +40,16 @@
             $this->expression   = $onExpression;
         }
 
+        /**
+         * @return string
+         */
         public function getJoinRow() {
             return $this->_buildJoin();
         }
 
+        /**
+         * @return string
+         */
         private function _buildJoin() {
             $query = "\n" . '%s JOIN %s ON %s %s %s';
             return sprintf(

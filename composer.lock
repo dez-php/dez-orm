@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "ccfdba0eeabcc8b1587179cd14e0999c",
+    "hash": "77231f17d7edb7547f48984165a8df63",
     "packages": [
         {
             "name": "dez-php/dez-collection",
@@ -16,7 +16,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dez-php/dez-collection/zipball/8ec758226b3881ff95c1604c32b0882cae534fa6",
+                "url": "https://api.github.com/repos/dez-php/dez-collection/zipball/7f51534e2135a020563d259513bd4592dbf654e7",
                 "reference": "8ec758226b3881ff95c1604c32b0882cae534fa6",
                 "shasum": ""
             },
@@ -50,17 +50,17 @@
             "time": "2015-08-29 10:13:24"
         },
         {
-            "name": "dez-php/dez-di",
-            "version": "v1.0.2",
+            "name": "dez-php/dez-configuration",
+            "version": "v1.0.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/dez-php/dez-di.git",
-                "reference": "8b4f38812f561ae0efe0e53ea0f42938090e40b2"
+                "url": "https://github.com/dez-php/dez-configuration.git",
+                "reference": "ec5fa210386efe55f80741759d36a1acf95c66c1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dez-php/dez-di/zipball/8b4f38812f561ae0efe0e53ea0f42938090e40b2",
-                "reference": "8b4f38812f561ae0efe0e53ea0f42938090e40b2",
+                "url": "https://api.github.com/repos/dez-php/dez-configuration/zipball/ec5fa210386efe55f80741759d36a1acf95c66c1",
+                "reference": "ec5fa210386efe55f80741759d36a1acf95c66c1",
                 "shasum": ""
             },
             "require": {
@@ -69,7 +69,7 @@
             "type": "library",
             "autoload": {
                 "psr-4": {
-                    "Dez\\DependencyInjection\\": "src/DependencyInjection"
+                    "Dez\\Config\\": "src/Config"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -82,22 +82,64 @@
                     "email": "vania.gontarenko@gmail.com"
                 }
             ],
-            "description": "DezPHP - Dependency injection",
+            "description": "DezPHP - Config",
             "keywords": [
-                "PHP Dependency Injection",
-                "dependency injection",
-                "dez-di",
-                "dez-php dependency injection",
-                "di"
+                "config",
+                "dez-config",
+                "dez-php config",
+                "php config"
             ],
-            "time": "2015-08-29 08:46:25"
+            "time": "2015-09-01 14:47:55"
+        },
+        {
+            "name": "dez-php/dez-db",
+            "version": "v1.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/dez-php/dez-db.git",
+                "reference": "460c176ac6a7fbb7cd6f7e97c6960ac3144bbb98"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/dez-php/dez-db/zipball/460c176ac6a7fbb7cd6f7e97c6960ac3144bbb98",
+                "reference": "460c176ac6a7fbb7cd6f7e97c6960ac3144bbb98",
+                "shasum": ""
+            },
+            "require": {
+                "dez-php/dez-configuration": ">=1.0.0",
+                "php": ">=5.5"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Dez\\Db\\": "src/Db"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Ivan Gontarenko",
+                    "email": "vania.gontarenko@gmail.com"
+                }
+            ],
+            "description": "Db Connection Component",
+            "keywords": [
+                "db",
+                "dez-php db",
+                "php db",
+                "php db connection"
+            ],
+            "time": "2015-10-18 09:08:17"
         }
     ],
     "packages-dev": [],
     "aliases": [],
-    "minimum-stability": "stable",
+    "minimum-stability": "dev",
     "stability-flags": [],
-    "prefer-stable": false,
+    "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
         "php": ">=5.5"

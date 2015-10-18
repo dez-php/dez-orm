@@ -5,9 +5,9 @@
     use Dez\ORM;
     use Dez\ORM\Common\Object;
     use Dez\ORM\Common\Utils;
-    use Dez\ORM\Connection\DBO as DbConnection;
-    use Dez\ORM\Connection\Stmt;
-    use Dez\ORM\Exception\Error as ORMException;
+    use Dez\Db\Connection as DbConnection;
+    use Dez\Db\Stmt;
+    use Dez\ORM\Exception as ORMException;
     use Dez\ORM\Collection\ModelCollection;
     use Dez\ORM\Common\Pagi as Pagination;
 
@@ -18,7 +18,6 @@
 
         protected $connection     = null;
         protected $data           = [];
-        protected $pk             = null;
         protected $id             = 0;
 
         protected $collection     = null;
@@ -32,8 +31,12 @@
             if( ! $this->hasTable() ) {
                 throw new ORMException( 'Not defined table name for: '. $this->getTableName() );
             }
-            $this->setConnection( ORM\Bootstrap::connect() );
-            $this->pk   = $this->getConnection()->getSchema()->getTablePK( $this->getTableName() );
+
+            if( $this->defineConnectionName() ) {
+                ORM\Connection::setConnectionName( static::$connection );
+            }
+
+            $this->setConnection( ORM\Connection::connect() );
         }
 
         /**
@@ -206,7 +209,23 @@
         */
 
         protected function hasTable() {
-            return property_exists( $this->getClassName(), 'table' );
+            return isset( static::$table );
+        }
+
+        /**
+         * @return boolean
+         */
+
+        protected function definePk() {
+            return isset( static::$pk );
+        }
+
+        /**
+         * @return boolean
+         */
+
+        protected function defineConnectionName() {
+            return isset( static::$connection );
         }
 
         /**
@@ -225,33 +244,30 @@
             return ! $phpName ? null : Utils::php2sql( $phpName );
         }
 
-        /**
-         * @param   string $related
-         * @param   string $foreignKey
-         * @return  static $model
-         * @throws  InvalidArgs
-         */
+        protected function hasOne( $related = null, $foreignKey = 'id', $fromKey = 'id' ) {
 
-        protected function hasOne( $related = null, $foreignKey = 'id' ) {
             if( $related != null && class_exists( $related ) ) {
-                $collection  = RelationHasOne::instance( $this->getCollection()->getIDs(), $related, $foreignKey )->setModel( $this )->get();
+
+                $ids            = ! $this->getCollection()
+                    ? [ $fromKey == $this->pk() ? $this->id() : $this->get( $fromKey ) ]
+                    : $this->getCollection()->getIDs( $fromKey );
+
+                $collection     = RelationHasOne::instance( $ids, $related, $foreignKey, $fromKey )->setModel( $this )->get();
                 return $collection->count() > 0 ? $collection[0] : new $related;
+
             }
+
             throw new ORMException( 'Related model not found ['. $related .']' );
+
         }
 
-        /**
-         * @param   string $related
-         * @param   string $foreignKey
-         * @return  ModelCollection $collection
-         * @throws  InvalidArgs
-        */
+        protected function hasMany( $related = null, $foreignKey = 'id', $fromKey = 'id' ) {
 
-        protected function hasMany( $related = null, $foreignKey = 'id' ) {
             if( $related != null && class_exists( $related ) ) {
-                $ids = $this->getCollection() ? $this->getCollection()->getIDs() : [ $this->id() ];
-                return RelationHasMany::instance( $ids, $related, $foreignKey )->setModel( $this )->get();
+                $ids = $this->getCollection() ? $this->getCollection()->getIDs( $fromKey ) : [ $this->id() ];
+                return RelationHasMany::instance( $ids, $related, $foreignKey, $fromKey )->setModel( $this )->get();
             }
+
             throw new ORMException( 'Related model not found ['. $related .']' );
         }
 
