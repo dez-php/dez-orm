@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "09758b74bdf5667c4ca2c7347143d65b",
+    "hash": "ccfdba0eeabcc8b1587179cd14e0999c",
     "packages": [
         {
             "name": "dez-php/dez-collection",
@@ -48,6 +48,49 @@
                 "simple php collection"
             ],
             "time": "2015-08-29 10:13:24"
+        },
+        {
+            "name": "dez-php/dez-di",
+            "version": "v1.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/dez-php/dez-di.git",
+                "reference": "8b4f38812f561ae0efe0e53ea0f42938090e40b2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/dez-php/dez-di/zipball/8b4f38812f561ae0efe0e53ea0f42938090e40b2",
+                "reference": "8b4f38812f561ae0efe0e53ea0f42938090e40b2",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.5"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Dez\\DependencyInjection\\": "src/DependencyInjection"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Ivan Gontarenko",
+                    "email": "vania.gontarenko@gmail.com"
+                }
+            ],
+            "description": "DezPHP - Dependency injection",
+            "keywords": [
+                "PHP Dependency Injection",
+                "dependency injection",
+                "dez-di",
+                "dez-php dependency injection",
+                "di"
+            ],
+            "time": "2015-08-29 08:46:25"
         }
     ],
     "packages-dev": [],
