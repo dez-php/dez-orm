@@ -1,71 +1,75 @@
 <?php
 
-    namespace Dez\ORM;
+namespace Dez\ORM;
 
-    use Dez\Config\Config;
-    use Dez\Db\Connection as PdoConnection;
+use Dez\Config\Config;
+use Dez\Db\Connection as PdoConnection;
+
+/**
+ * Class Bootstrap
+ * @package Dez\ORM
+ */
+class Connection
+{
+
+    /** @var array() */
+    static protected $connections = [];
+
+    /** @var string */
+    static protected $connectionName = 'dev';
+
+    /** @var Config */
+    static protected $config;
 
     /**
-     * Class Bootstrap
-     * @package Dez\ORM
+     * @param Config $config
+     * @param null $connectionName
      */
-    class Connection {
+    static public function init(Config $config, $connectionName = null)
+    {
+        static::$config = $config;
+        static::$connectionName = $connectionName;
+        self::setConnectionName($connectionName);
+    }
 
-        /** @var array() */
-        static protected $connections       = [];
+    /**
+     * @param null $connectionName
+     */
+    static public function setConnectionName($connectionName = null)
+    {
+        self::$connectionName = $connectionName;
+    }
 
-        /** @var string */
-        static protected $connectionName    = 'dev';
+    /**
+     * @param bool|false $reconnect
+     * @return mixed
+     * @throws Exception
+     */
+    static public function connect($reconnect = false)
+    {
 
-        /** @var Config */
-        static protected $config;
+        $hash = md5(static::$connectionName);
 
-        /**
-         * @param Config $config
-         * @param null $connectionName
-         */
-        static public function init( Config $config, $connectionName = null ) {
-            static::$config         = $config;
-            static::$connectionName = $connectionName;
-            self::setConnectionName( $connectionName );
-        }
+        if (!isset(self::$connections[$hash]) || $reconnect === true) {
 
-        /**
-         * @param null $connectionName
-         */
-        static public function setConnectionName( $connectionName = null ) {
-            self::$connectionName = $connectionName;
-        }
-
-        /**
-         * @param bool|false $reconnect
-         * @return mixed
-         * @throws Exception
-         */
-        static public function connect( $reconnect = false ) {
-
-            $hash   = md5( static::$connectionName );
-
-            if( ! isset( self::$connections[ $hash ] ) || $reconnect === true ) {
-
-                if( static::$config->has( 'db' ) ) {
-                    $config     = static::$config->get( 'db' );
-                    if( $config->has( 'connection' ) ) {
-                        $config     = $config->get( 'connection' );
-                        if( $config->has( static::$connectionName ) ) {
-                            static::$connections[ $hash ]   = new PdoConnection( $config->get( static::$connectionName ) );
-                        } else {
-                            throw new Exception( 'Connection configuration not found with name: '. static::$connectionName );
-                        }
-                    } else {
-                        throw new Exception( 'Connection block not found in config' );
-                    }
-                } else {
-                    throw new Exception( 'Db block not found in config' );
-                }
+            if(! static::$config->has('db')) {
+                throw new Exception("Invalid configuration object 'root.db.*'");
             }
 
-            return static::$connections[ $hash ];
+            if(! static::$config['db']->has('connection')) {
+                throw new Exception("Invalid configuration object 'root.db.connection.*'");
+            }
+            
+            $name = static::$connectionName;
+
+            if(! static::$config['db']['connection']->has($name)) {
+                throw new Exception("Invalid configuration object 'root.db.connection.{$name}.*'");
+            }
+
+            static::$connections[$hash] = new PdoConnection(static::$config['db']['connection'][$name]);
         }
 
+        return static::$connections[$hash];
     }
+
+}

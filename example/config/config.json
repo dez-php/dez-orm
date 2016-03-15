@@ -2,12 +2,12 @@
   "db":{
     "connection":{
       "dev":{
-        "dsn":"mysql:host=localhost;dbname=dev-id",
+        "dsn":"mysql:host=localhost;dbname=dezbyte-site",
         "user":"root",
         "password":"root"
       },
       "production":{
-        "dsn":"mysql:host=localhost;dbname=test",
+        "dsn":"mysql:host=localhost;dbname=dezbyte-site",
         "user":"root",
         "password":"root"
       }

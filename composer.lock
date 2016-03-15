@@ -4,20 +4,21 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "77231f17d7edb7547f48984165a8df63",
+    "hash": "d61c1321e1e468cc8dbdc3445a6659a7",
+    "content-hash": "c10b692aa54dea62169183c832d34815",
     "packages": [
         {
             "name": "dez-php/dez-collection",
-            "version": "v1.0.1",
+            "version": "v1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/dez-php/dez-collection.git",
-                "reference": "8ec758226b3881ff95c1604c32b0882cae534fa6"
+                "reference": "2c2e4c05ff5eb42a0c61fce1b2ff9b381ee397d0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dez-php/dez-collection/zipball/7f51534e2135a020563d259513bd4592dbf654e7",
-                "reference": "8ec758226b3881ff95c1604c32b0882cae534fa6",
+                "url": "https://api.github.com/repos/dez-php/dez-collection/zipball/2c2e4c05ff5eb42a0c61fce1b2ff9b381ee397d0",
+                "reference": "2c2e4c05ff5eb42a0c61fce1b2ff9b381ee397d0",
                 "shasum": ""
             },
             "require": {
@@ -47,20 +48,20 @@
                 "php collection",
                 "simple php collection"
             ],
-            "time": "2015-08-29 10:13:24"
+            "time": "2016-03-15 08:53:32"
         },
         {
             "name": "dez-php/dez-configuration",
-            "version": "v1.0.0",
+            "version": "v1.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/dez-php/dez-configuration.git",
-                "reference": "ec5fa210386efe55f80741759d36a1acf95c66c1"
+                "reference": "96151e60b878845e7913f2c32e0329a2ff485235"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dez-php/dez-configuration/zipball/ec5fa210386efe55f80741759d36a1acf95c66c1",
-                "reference": "ec5fa210386efe55f80741759d36a1acf95c66c1",
+                "url": "https://api.github.com/repos/dez-php/dez-configuration/zipball/96151e60b878845e7913f2c32e0329a2ff485235",
+                "reference": "96151e60b878845e7913f2c32e0329a2ff485235",
                 "shasum": ""
             },
             "require": {
@@ -89,7 +90,7 @@
                 "dez-php config",
                 "php config"
             ],
-            "time": "2015-09-01 14:47:55"
+            "time": "2015-11-25 09:22:42"
         },
         {
             "name": "dez-php/dez-db",

@@ -1,7 +1,8 @@
 <?php
 
-    namespace Dez\ORM;
+namespace Dez\ORM;
 
-    class Exception extends \Exception {
+class Exception extends \Exception
+{
 
-    }
+}

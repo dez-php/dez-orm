@@ -1,61 +1,95 @@
 <?php
 
-    namespace Dez\ORM\Relation;
+namespace Dez\ORM\Relation;
 
-    use Dez\ORM\Common\Object;
-    use Dez\ORM\Common\SingletonTrait;
-    use Dez\ORM\Model\Table as TableModel;
+use Dez\ORM\Collection\ModelCollection;
+use Dez\ORM\Common\Object;
+use Dez\ORM\Common\SingletonTrait;
+use Dez\ORM\Model\Table as TableModel;
 
-    abstract class Relation extends Object {
+abstract class Relation extends Object
+{
 
-        use SingletonTrait;
+    use SingletonTrait;
 
-        protected
-            $model          = null,
-            $related        = null,
-            $foreignKey     = 'id',
-            $fromKey        = 'id',
-            $ids            = [ 0 ],
+    /**
+     * @var TableModel
+     */
+    protected $model = null;
+    /**
+     * @var string
+     */
+    protected $related = null;
+    /**
+     * @var string
+     */
+    protected $foreignKey = 'id';
+    /**
+     * @var string
+     */
+    protected $fromKey = 'id';
+    /**
+     * @var array
+     */
+    protected $ids = [0];
 
-            $collection     = null;
+    /**
+     * @var ModelCollection
+     */
+    protected $collection = null;
 
-        /**
-         * @param   array $ids
-         * @param   TableModel $related
-         * @param   string $foreignKey
-         */
+    /**
+     * @param TableModel $model
+     * @return $this
+     */
+    public function setModel(TableModel $model)
+    {
+        $this->model = $model;
 
-        protected function init( array $ids = [], $related, $foreignKey, $fromKey ) {
-            $this->ids          = $ids;
-            $this->related      = $related;
-            $this->foreignKey   = $foreignKey;
-            $this->fromKey      = $fromKey;
-            $this->makeRelation();
-        }
+        return $this;
+    }
 
-        abstract protected function makeRelation();
+    /**
+     * @return ModelCollection
+     */
+    public function get()
+    {
 
-        public function setModel( TableModel $model ) {
-            $this->model    = $model;
-            return $this;
-        }
+        return $this->collection->findAll(function ($item) {
+            /** @var TableModel $item */
+            $modelValue = $this->fromKey == $this->model->pk()
+                ? $this->model->id()
+                : $this->model->get($this->fromKey);
 
-        public function get() {
+            $relatedValue = $this->foreignKey == $item->pk()
+                ? $item->id()
+                : $item->get($this->foreignKey);
 
-            return $this->collection->findAll( function( $item ) {
+            return $modelValue == $relatedValue;
 
-                $modelValue     = $this->fromKey == $this->model->pk()
-                    ? $this->model->id()
-                    : $this->model->get( $this->fromKey );
-
-                $relatedValue   = $this->foreignKey == $item->pk()
-                    ? $item->id()
-                    : $item->get( $this->foreignKey );
-
-                return $modelValue == $relatedValue;
-
-            } );
-
-        }
+        });
 
     }
+
+    /**
+     * @param   array $ids
+     * @param   TableModel $related
+     * @param   string $foreignKey
+     * @param $fromKey
+     */
+    protected function init(array $ids = [], $related, $foreignKey, $fromKey)
+    {
+        $this->ids = $ids;
+        $this->related = $related;
+        $this->foreignKey = $foreignKey;
+        $this->fromKey = $fromKey;
+        
+        $this->makeRelation();
+    }
+
+    /**
+     * @return mixed
+     */
+    abstract protected function makeRelation();
+
+}

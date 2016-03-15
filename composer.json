@@ -1,11 +1,11 @@
 {
   "name": "dez-php/dez-orm",
-  "description": "Simple PHP ORM (DezORM)",
-  "keywords": ["php orm","orm","simple php orm", "dez-php orm"],
+  "description": "Dez ORM",
+  "keywords": ["php orm","orm","simple php orm","dez-php orm"],
   "authors": [
     {
       "name": "Ivan Gontarenko",
-      "email": "vania.gontarenko@gmail.com"
+      "email": "stewie.dev@gmail.com"
     }
   ],
   "license": "MIT",
