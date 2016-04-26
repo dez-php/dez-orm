@@ -89,10 +89,12 @@ class QueryBuilder extends Object
     }
 
     /**
+     * @param string $columnName
+     * @param string $orderMode
      * @return static
      */
 
-    public function order($columnName = null, $orderMode = 'ASC')
+    public function order($columnName = '', $orderMode = 'ASC')
     {
         $this->getNativeBuilder()->order([$columnName, $orderMode]);
 
@@ -100,6 +102,7 @@ class QueryBuilder extends Object
     }
 
     /**
+     * @param string $sqlQuery
      * @return static
      */
 
@@ -111,12 +114,15 @@ class QueryBuilder extends Object
     }
 
     /**
+     * @param integer $offset
+     * @param integer $limit
+     *
      * @return static
      */
 
     public function limit()
     {
-        $this->getNativeBuilder()->limit($args[0], $args[1]);
+        call_user_func_array([$this->getNativeBuilder(), 'limit'], func_get_args());
 
         return $this;
     }
